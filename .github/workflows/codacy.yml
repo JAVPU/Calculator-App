@@ -1,9 +1,10 @@
 
 name: Java Codacy Coverage
 
+
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   build:
