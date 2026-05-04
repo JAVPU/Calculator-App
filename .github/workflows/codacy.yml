@@ -1,4 +1,4 @@
-name: Java CI with Codacy
+name: Java Codacy Coverage
 
 on:
   push:
@@ -17,16 +17,14 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: maven
 
-      # Step 1: Tests run karein aur JaCoCo report generate karein
-      - name: Build with Maven
-        run: mvn clean test
+      # Maven plugin add kiye baghair report generate karne ki koshish:
+      - name: Build and Test
+        run: mvn clean test jacoco:report
 
-      # Step 2: Codacy ko report bhejein
+      # Codacy ko report bhejna
       - name: Run Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          # JaCoCo ki report aksar is path par hoti hai:
           coverage-reports: target/site/jacoco/jacoco.xml
